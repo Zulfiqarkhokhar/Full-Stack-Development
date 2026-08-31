@@ -48,3 +48,21 @@ const counter = incrementCounter();
 console.log(counter());
 console.log(counter());
 console.log(counter());
+
+
+function multiplier(){
+    let num =10;
+    function mul(){
+        num*=num;
+        return num;
+    }
+
+    return mul;
+}
+
+const multi = multiplier();
+
+console.log(multi())
+console.log(multi())
+console.log(multi())
+console.log(multi())
