@@ -51,3 +51,7 @@ let values2 = [1,2,3,[4,5,6,[7,8,9],10],11];
 console.log(values2)
 
 console.log(values2.flat(Infinity)); // flat return new array in same level but by default it go to 1 level 
+
+for(let c of values2.flat(Infinity)){
+    console.log(c)
+}
