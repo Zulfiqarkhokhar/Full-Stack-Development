@@ -12,3 +12,21 @@ console.log("End")
 // Event loop take it back into stack and javascript run it
 
 // high priority task like fetch are placed in Microtask Queue and Event Loop take back to stack
+
+
+console.log("Hello");
+
+setTimeout(()=>{
+    console.log("bro");
+},10);
+
+let result = 0;
+
+for(let i=0; i<=1000000000; i++){
+    result +=i;
+}
+
+console.log(result);
+
+// for this example the the event loop will place the callback until the stack is empty which is very important point to note
+// it always check when stack is empty then place it
