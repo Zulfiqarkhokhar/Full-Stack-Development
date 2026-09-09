@@ -1,6 +1,8 @@
+import Clock from "./Clock";
 import MyButton from "./MyButton";
 import MyComponent from "./MyComponent";
 import StateComponent from "./StateComponent";
+import UseEffectHook from "./UseEffectHook";
 
 function App(){
   return <div>
@@ -8,6 +10,9 @@ function App(){
     <MyButton/>
     <MyComponent/>
     <StateComponent/>
+    <UseEffectHook/>
+
+    <Clock/>
   </div>
 }
 
