@@ -2,6 +2,7 @@ import Clock from "./Clock";
 import MyButton from "./MyButton";
 import MyComponent from "./MyComponent";
 import StateComponent from "./StateComponent";
+import UpdateList from "./UpdateList";
 import UseEffectHook from "./UseEffectHook";
 
 function App(){
@@ -13,6 +14,8 @@ function App(){
     <UseEffectHook/>
 
     <Clock/>
+
+    <UpdateList/>
   </div>
 }
 
