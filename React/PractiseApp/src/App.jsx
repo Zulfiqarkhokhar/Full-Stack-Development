@@ -1,15 +1,18 @@
-import Clock from "./Clock";
-import Login from "./Login";
-import MyButton from "./MyButton";
-import MyComponent from "./MyComponent";
-import StateComponent from "./StateComponent";
-import StopWatch from "./StopWatch";
-import UpdateList from "./UpdateList";
-import UseEffectHook from "./UseEffectHook";
+// import Clock from "./Clock";
+// import Login from "./Login";
+// import MyButton from "./MyButton";
+// import MyComponent from "./MyComponent";
+// import StateComponent from "./StateComponent";
+// import StopWatch from "./StopWatch";
+// import UpdateList from "./UpdateList";
+// import UseEffectHook from "./UseEffectHook";
+
+// import Form from './Form'
+import ZodForm from './ZodForm';
 
 function App(){
-  return <div>
-    <h1>This is React Practise Project</h1>
+  return <div style={{display:"flex", justifyContent:'center', alignItems:'center',backgroundColor:"black", color:"white"}}>
+    {/* <h1>This is React Practise Project</h1>
     <MyButton/>
     <MyComponent/>
     <StateComponent/>
@@ -21,7 +24,10 @@ function App(){
 
     <StopWatch/>
 
-    <Login/>
+    <Login/> */}
+
+    {/* <Form/> */}
+    <ZodForm/>
   </div>
 }
 
