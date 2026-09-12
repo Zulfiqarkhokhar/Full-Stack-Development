@@ -8,7 +8,34 @@
 // import UseEffectHook from "./UseEffectHook";
 
 // import Form from './Form'
-import ZodForm from './ZodForm';
+// import ZodForm from './ZodForm';
+
+import { createBrowserRouter,RouterProvider } from "react-router-dom";
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import Dashboard from "./Pages/Dashboard";
+import Navbar from "./Pages/Navbar";
+import Student from "./Pages/Student";
+
+const routes = createBrowserRouter([
+  {
+    path:'/',
+    element: <div><Navbar/><Home/></div>
+  },
+  {
+    path:'/about',
+    element:<div><Navbar/><About/></div>
+  },
+  {
+    path:'/dashboard',
+    element:<div><Navbar/><Dashboard/></div>
+  },
+  {
+    path:'/student/:id',
+    element:<div><Navbar/><Student/></div>
+  },
+
+])
 
 function App(){
   return <div style={{display:"flex", justifyContent:'center', alignItems:'center',backgroundColor:"black", color:"white"}}>
@@ -27,7 +54,11 @@ function App(){
     <Login/> */}
 
     {/* <Form/> */}
-    <ZodForm/>
+    {/* <ZodForm/> */}
+
+{/* <Nabar/> */}
+
+    <RouterProvider router={routes}/>
   </div>
 }
 
