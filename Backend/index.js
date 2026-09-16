@@ -1,19 +1,89 @@
-// creating server in node js
-import http from 'http'
+import express from 'express'
 
-const server = http.createServer((req,res)=>{
-    if(req.url === "/"){
-        res.end("Welcome to Home")
-    }
-    else if(req.url === "/about"){
-        res.end("Welcome to about page")
-    }
-    else{
-        res.end("404 Page not Found")
-    }
+const app = express();
+const port = 8000;
+
+// creating middleware for json data
+
+app.use(express.json())
+
+
+app.get('/',(req,res)=>{
+    // sending json
+
+    res.json({
+        name:"zulfiqar",
+        age:28,
+        university:"IBA"
+    })
 })
 
-server.listen(8000,()=>{
-    console.log("server is started")
-});
+app.get('/about',(req,res)=>{
+    res.send("This is about page");
+})
+
+app.get('/contact',(req,res)=>{
+    res.send("This contact page");
+})
+
+
+
+// creating post api
+
+app.post('/',(req,res)=>{
+    // we can access body data in req.body
+    const body = req.body;
+    res.send(body.name);
+})
+
+//route for page not found
+
+
+app.all('*splat',(req,res)=>{
+    res.status(404).send('<h1>404! Page not found</h1>');
+})
+
+app.listen(port,()=>{
+    console.log(`Server started at ${port}`)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// creating server in node js
+// import http from 'http'
+
+// const server = http.createServer((req,res)=>{
+//     if(req.url === "/"){
+//         res.end("Welcome to Home")
+//     }
+//     else if(req.url === "/about"){
+//         res.end("Welcome to about page")
+//     }
+//     else{
+//         res.end("404 Page not Found")
+//     }
+// })
+
+// server.listen(8000,()=>{
+//     console.log("server is started")
+// });
 
