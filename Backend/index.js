@@ -1,4 +1,5 @@
 import express from 'express'
+import users from './users.js'
 
 const app = express();
 const port = 8000;
@@ -7,6 +8,30 @@ const port = 8000;
 
 app.use(express.json())
 
+
+// getting all users
+
+app.get('/users',(req,res)=>{
+    res.json(users);
+})
+
+// using params to find user
+
+app.get("/users/:id",(req,res)=>{
+    const id = parseInt(req.params.id);
+    const Newuser = users.find((user)=>(user.id === id));
+    if(!Newuser){
+        res.send("404 user not found")
+    }
+    res.json(Newuser);
+})
+
+// getting querry params from url
+
+app.get("/search",(req,res)=>{
+    const querry = req.query;
+    res.json(querry);
+})
 
 app.get('/',(req,res)=>{
     // sending json
