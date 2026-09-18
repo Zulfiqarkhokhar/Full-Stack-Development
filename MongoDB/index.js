@@ -7,14 +7,10 @@ import router from './routes/user.routes.js';
 const app = express();
 const port = process.env.PORT || 8001;
 
-
 // middleware
 
 app.use(express.json());
-
 app.use("/api",router);
-
-
 
 // port listning
 
