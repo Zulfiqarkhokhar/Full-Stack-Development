@@ -21,14 +21,14 @@ const Signup = () => {
         e.preventDefault();
 
         try {
-            await axios.post(`${serverUrl}/api/signup`,{
+            const res = await axios.post(`${serverUrl}/api/signup`,{
             firstName,
             lastName,
             userName,
             email,
             password
-        })
-        console.log("User Created")
+        },{withCredentials:true})
+        console.log("User Created:",res)
         } catch (error) {
             console.log("Error: ",error)
         }
