@@ -8,8 +8,6 @@ const Signup = () => {
 
     const {serverUrl} = useContext(dataContext);
 
-    console.log(serverUrl)
-
     const [firstName,setFirstName] = useState("");
     const [lastName,setLastName] = useState("");
     const [userName,setUserName] = useState("");
@@ -32,11 +30,7 @@ const Signup = () => {
         } catch (error) {
             console.log("Error: ",error)
         }
-
-
     }
-
-
   return (
     <div className="h-screen bg-gray-100 flex items-center justify-center px-4 overflow-hidden">
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-5">
