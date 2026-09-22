@@ -1,18 +1,25 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import dp from "../assets/dp.png"
 import { useContext } from "react";
 import { dataContext } from "../context/dataContext";
+import {useNavigate} from "react-router-dom"
 import axios from "axios";
 
 const Signup = () => {
 
     const {serverUrl} = useContext(dataContext);
 
+    const navigate = useNavigate();
+
     const [firstName,setFirstName] = useState("");
     const [lastName,setLastName] = useState("");
     const [userName,setUserName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
+    const [frontendImage,setFrontendImage] = useState(dp);
+    const [backendImage,setBackendImage] = useState(null);
+
+    const imageRef = useRef(null);
 
     async function handleSubmit(e){
 
@@ -31,16 +38,25 @@ const Signup = () => {
             console.log("Error: ",error)
         }
     }
+
+    const handleImageChange = (e) =>{
+        let file = e.target.files[0];
+        setBackendImage(file);
+        let image = URL.createObjectURL(file);
+        setFrontendImage(image)
+    }
+
   return (
     <div className="h-screen bg-gray-100 flex items-center justify-center px-4 overflow-hidden">
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-5">
 
         {/* Profile Image */}
         <div className="flex justify-center mb-3">
-          <div className="relative group cursor-pointer">
+          <input type="file" hidden ref={imageRef} onChange={handleImageChange} />
+          <div className="relative group cursor-pointer" onClick={()=>{imageRef.current.click()}}>
             <div className="w-24 h-24 rounded-full bg-gray-200 border-4 border-white shadow flex items-center justify-center overflow-hidden">
               <img
-                src={dp}
+                src={frontendImage}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -141,6 +157,10 @@ const Signup = () => {
           >
             Sign Up
           </button>
+
+          <div className="flex justify-center items-center">
+          <p className="text-black cursor-pointer" onClick={()=>navigate("/login")}>Already have an account ? <span className="text-blue-600">Login</span></p>
+          </div>
 
         </form>
       </div>

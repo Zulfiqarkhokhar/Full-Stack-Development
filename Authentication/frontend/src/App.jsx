@@ -5,7 +5,7 @@ import Login from "./pages/Login"
 const App = () => {
   return (
     <Routes>
-      <Route path="/singup" element={<Signup/>}/>
+      <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
     </Routes>
   )

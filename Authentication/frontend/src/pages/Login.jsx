@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { useState } from "react";
 import { dataContext } from "../context/dataContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {serverUrl} = useContext(dataContext);
+
+  const navigate = useNavigate();
 
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
@@ -70,6 +73,10 @@ const Login = () => {
           >
             Login
           </button>
+
+          <div className="flex justify-center items-center">
+          <p className="text-black cursor-pointer" onClick={()=>navigate("/signup")}>Create New Account ? <span className="text-blue-600">Sign Up</span></p>
+          </div>
 
         </form>
       </div>
