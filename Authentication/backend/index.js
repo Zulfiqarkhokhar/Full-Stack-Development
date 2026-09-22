@@ -1,12 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
+
+let app = express();
+
 import connectDb from './config/db.js';
 import router from './routes/user.route.js';
 import cors from "cors"
 import cookieParser from 'cookie-parser';
-dotenv.config()
 
-let app = express();
 
 app.use(express.json());
 app.use(cors({

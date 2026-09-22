@@ -21,23 +21,44 @@ const Signup = () => {
 
     const imageRef = useRef(null);
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        try {
-            const res = await axios.post(`${serverUrl}/api/signup`,{
-            firstName,
-            lastName,
-            userName,
-            email,
-            password
-        },{withCredentials:true})
-        console.log("User Created:",res)
-        } catch (error) {
-            console.log("Error: ",error)
+    try {
+
+        const formData = new FormData();
+
+        formData.append("firstName", firstName);
+        formData.append("lastName", lastName);
+        formData.append("userName", userName);
+        formData.append("email", email);
+        formData.append("password", password);
+
+        if (backendImage) {
+            formData.append("profileImage", backendImage);
         }
+
+        const res = await axios.post(
+            `${serverUrl}/api/signup`,
+            formData,
+            {
+                withCredentials: true
+            }
+        );
+
+        console.log("User Created:", res.data);
+
+        navigate("/");
+
+    } catch (error) {
+
+        console.log(
+            "Error:",
+            error.response?.data?.message
+        );
     }
+}
 
     const handleImageChange = (e) =>{
         let file = e.target.files[0];

@@ -1,12 +1,18 @@
-import express, { Router } from "express"
-import {login, logout, singup } from "../controllers/user.controller.js";
+import { Router } from "express";
+import {
+    login,
+    logout,
+    singup,
+    getCurrentUser
+} from "../controllers/user.controller.js";
+import isAuth from "../middleware/isAuth.js";
+import upload from "../middleware/upload.js";
 
+const router = Router();
 
-let router = express(Router());
-
-router.post("/signup",singup);
+router.post("/signup",upload.single("profileImage"),singup);
 router.post("/login",login);
 router.post("/logout",logout);
-
+router.get("/me",isAuth,getCurrentUser);
 
 export default router;
