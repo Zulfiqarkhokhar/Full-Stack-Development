@@ -78,9 +78,34 @@ class LinkedList{
                 current = current.next;
                 count++;
             }
-            newNode.next = current;
-            current = newNode;
+            newNode.next = current.next;
+            current.next = newNode;
         }
+    }
+
+    // deleting node from first
+
+    deleteFirst(){
+        if(!this.head){
+            return;
+        }
+        this.head = this.head.next;
+    }
+
+    // deleting node from last
+
+    deleteLast(){
+        if(!this.head){
+            return;
+        }
+        if(!this.head.next){
+            this.head = null;
+        }
+        let current = this.head;
+        while(current.next.next){
+            current = current.next;
+        }
+        current.next = null;
     }
 
 
@@ -99,6 +124,15 @@ list.addAtFirst(70);
 
 list.addAtIndex(3,80);
 
+list.printNode();
+
+list.deleteFirst();
+console.log("After deleting first node")
+list.printNode();
+
+
+list.deleteLast();
+console.log("After deleting last node")
 list.printNode();
 
 // console.log(list.size());
