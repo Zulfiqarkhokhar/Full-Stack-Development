@@ -126,3 +126,42 @@ export async function getUserDetail(req,res){
         })
     }
 }
+
+
+// update user profile 
+
+export async function updateUser(req,res){
+    try {
+        const {name,email} = req.body;
+        if(!name || !email || !validator.isEmail(email)){
+            return res.status(400).json({
+                success: false,
+                message:"Valid name and email are required"
+            })
+        }
+
+        const existUser = await userModel.findOne({email,_id:{$ne:req.user.id}});
+        if(existUser){
+            return res.status(409).json({
+                success:false,
+                message:"User already in use"
+            })
+        }
+        const user = await userModel.findByIdAndUpdate(
+            req.user.id,
+            {name,email},
+            {new:true,runValidators:true,select:"name email"}
+        );
+        res.json({
+            success:true,
+            user
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:"Server Error"
+        })
+    }
+}
