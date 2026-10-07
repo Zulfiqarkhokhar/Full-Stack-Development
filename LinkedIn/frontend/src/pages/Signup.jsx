@@ -14,6 +14,8 @@ const Signup = () => {
         email:"",
         password:""
     })
+    const [loading,setLoading] = useState(false);
+    const [err,setErr] = useState("");
     const {serverUrl} = useContext(authDataContext);
     const navigate = useNavigate();
 
@@ -29,11 +31,25 @@ const Signup = () => {
 
     const handleSingUp = async (e) =>{
         e.preventDefault();
+        setLoading(true);
         try {
             const result = await axios.post(serverUrl+"/api/auth/signup",userDetail,{withCredentials:true})
-            console.log(result)
+            if (result.status === 201) {
+                setLoading(false);
+                setErr("")
+            setUserDetail({
+                firstName: "",
+                lastName: "",
+                userName: "",
+                email: "",
+                password: ""
+            });
+
+            console.log("Signup successful");
+        }
         } catch (error) {
-            console.log(error)
+            setLoading(false);
+            setErr(error.response.data.message);
         }
     }
 
@@ -52,7 +68,8 @@ const Signup = () => {
                 <input type={show?"text":"password"} name="password" value={userDetail.password} onChange={handleChange} placeholder="password" required className="w-full h-full border-none text-gray-800 text-[18px] px-[20px] py-[10px] rounded-md"/>
                 <span className="absolute right-[20px] top-[10px] text-[#0A66C2] font-semibold cursor-pointer" onClick={()=>setShow(prev=>!prev)}>{show?"hide":"show"}</span>
             </div>
-            <button type="submit" className="w-[100%] h-[50px] rounded-full bg-[#0A66C2] mt-[30px] text-white">Sign Up</button>
+            {err && <p className="text-center text-red-500">*{err}</p>}
+            <button type="submit" className="w-[100%] h-[50px] rounded-full bg-[#0A66C2] mt-[30px] text-white" disabled={loading}>{loading?"Loading...":"Sign Up"}</button>
             <p className="text-center cursor-pointer" onClick={()=>navigate("/login")}>Already have an account ? <span className="text-[#0A66C2]">Sign In</span></p>
         </form>
 

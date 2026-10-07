@@ -66,7 +66,7 @@ export const login = async (req,res) =>{
             secure:process.env.NODE_ENVIRONMENT === "production"
         })
 
-        return res.status(201).json(user);
+        return res.status(200).json(user);
 
     } catch (error) {
         return res.status(501).json({message:error})

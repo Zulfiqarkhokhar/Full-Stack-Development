@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import connectDb from "./config/db.js";
 import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
+import userRouter from "./routes/user.routes.js";
 dotenv.config();
 
 let port = process.env.PORT || 9001;
@@ -16,6 +17,7 @@ app.use(cors({
     credentials:true
 }))
 app.use("/api/auth",authRouter)
+app.use("/api/user",userRouter)
 
 app.get("/",(req,res)=>{
     res.send("LinkedIn Project");
