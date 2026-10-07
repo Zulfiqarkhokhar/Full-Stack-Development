@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { authDataContext } from "../context/AuthContext";
 import axios from "axios";
+import { UserDataContext } from "../context/UserContext";
 const Login = () => {
 
+    const {userData,setUserData} = useContext(UserDataContext);
     const [show,setShow] = useState(false);
     const [userDetail,setUserDetail] = useState({
         email:"",
@@ -31,7 +33,8 @@ const Login = () => {
         setLoading(true);
         try {
             const result = await axios.post(serverUrl+"/api/auth/login",userDetail,{withCredentials:true})
-            if (result.status === 201) {
+            if (result.status === 200) {
+                setUserData(result.data)
                 setLoading(false);
                 setErr("")
             setUserDetail({
