@@ -16,16 +16,23 @@ export const getProductByIdService = async(id)=>{
     let product = await ProductModel.findById(id);
     return product;
 }
-export const getProductByIdAndUpdateService = async(id,newData)=>{
-    
-    let product = await ProductModel.findByIdAndUpdate(id,newData,{new:true});
+export const getProductByIdAndUpdateService = async (id, newData) => {
+    const product = await ProductModel.findByIdAndUpdate(
+        id,
+        newData,
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
     return product;
-}
-export const deleteProductService = async(id)=>{
-    
-    let deleted = await ProductModel.deleteOne({_id:id});
-    return deleted;
-}
+};
+export const deleteProductService = async (id) => {
+    const deletedProduct = await ProductModel.findByIdAndDelete(id);
+
+    return deletedProduct;
+};
 
 export const throwError = async()=>{
     throw new Error("Testing for global error handling with middleware");

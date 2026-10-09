@@ -1,11 +1,21 @@
 import { addProductService, deleteProductService, getAllProductsService, getProductByIdAndUpdateService, getProductByIdService, throwError } from "../services/product.services.js";
+import AppError from "../utils/AppError.js";
 
 export const createProduct = async(req,res,next)=>{
     try {
         let product = req.body;
-        if(!product.name || !product.price || !product.category || !product.stock){
-            return res.status(400).json({message:"All field are requird"});
-        }
+        if (
+    typeof product.name !== "string" ||
+    !product.name.trim() ||
+    typeof product.category !== "string" ||
+    !product.category.trim() ||
+    typeof product.price !== "number" ||
+    product.price <= 0 ||
+    typeof product.stock !== "number" ||
+    product.stock < 0
+) {
+    throw new AppError("Invalid product data", 400);
+}
         let newProduct = await addProductService(product);
         return res.status(201).json({message:"product created"});
     } catch (error) {
@@ -16,12 +26,9 @@ export const createProduct = async(req,res,next)=>{
 export const getAllProducts = async(req,res,next)=>{
     try {
         let products = await getAllProductsService()
-        if(!products){
-            return res.status(400).json({message:"Products not found"});
-        }
         return res.status(200).json(products);
     } catch (error) {
-       next(error)
+        next(error)
     }
 }
 
@@ -29,12 +36,12 @@ export const getProductById = async(req,res,next)=>{
     try {
         let {id} = req.params;
         let product = await getProductByIdService(id);
-        if(!product){
-            return res.status(400).json({message:"Product not found"});
+        if (!product) { 
+            throw new AppError("Product not found", 404); 
         }
         return res.status(200).json(product);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 
@@ -42,8 +49,8 @@ export const updateProduct = async(req,res,next)=>{
     try {
         let {id} = req.params;
         let product = await getProductByIdAndUpdateService(id,req.body);
-        if(!product){
-            return res.status(400).json({message:"Product not found"});
+        if (!product) { 
+            throw new AppError("Product not found", 404); 
         }
         return res.status(200).json(product);
     } catch (error) {
@@ -51,23 +58,27 @@ export const updateProduct = async(req,res,next)=>{
     }
 }
 
-export const deleteProduct = async(req,res,next)=>{
+export const deleteProduct = async (req, res, next) => {
     try {
-        let {id} = req.params;
-        let deleted = await deleteProductService(id);
-        if(!deleted){
-            return res.status(400).json({message:"Product not found"});
-        }
-        return res.status(200).json(deleted);
-    } catch (error) {
-        next(error)
-    }
-}
+        const { id } = req.params;
 
-export const errorhandling = async(req,res,next)=>{
-    try {
-        await throwError();
+        const deletedProduct = await deleteProductService(id);
+
+        if (!deletedProduct) {
+            throw new AppError("Product not found", 404);
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Product deleted successfully",
+            product: deletedProduct
+        });
+
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
+
+export const errorhandling = (req, res, next) => {
+    next(new AppError("Testing global error handler", 501));
+};
